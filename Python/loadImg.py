@@ -1,13 +1,14 @@
 import os
 import Image
 import numpy as np
+import scipy.io as sio
 
 from math import *
-from scipy.io import loadmat
 
 imgFolder=os.path.dirname(os.path.realpath(__file__))+'/../data/imgs/'
 trainFeatureFile=os.path.dirname(os.path.realpath(__file__))+'/../data/train.mat'
 testFeatureFile=os.path.dirname(os.path.realpath(__file__))+'/../data/test.mat'
+resultFolder=os.path.dirname(os.path.realpath(__file__))+'/../results/'
 
 def getDataX(begin,end):
 	'''
@@ -25,7 +26,7 @@ def getDataY():
 	>>>get the label and pre-extracted feature from *.mat file
 	>>>output format: [cnn_feature, hog_feature, labels]
 	'''
-	features=loadmat(trainFeatureFile)
+	features=sio.loadmat(trainFeatureFile)
 	cnnFeature=features['train'][0][0][0]
 	hogFeature=features['train'][0][0][1]
 	labels=features['train'][0][0][2]
@@ -36,10 +37,20 @@ def getTestData():
 	>>>get the features from test dataset
 	>>>output format: [cnn_feature, hog_feature]
 	'''
-	features=loadmat(testFeatureFile)
+	features=sio.loadmat(testFeatureFile)
 	cnnFeature=features['test'][0][0][0]
 	hogFeature=features['test'][0][0][1]
 	return [cnnFeature,hogFeature]
+
+def saveResult(fileName,result):
+	'''
+	>>>type fileName:str
+	>>>para fileName:output file
+	>>>type result:directionary
+	>>>para result:data to be saved
+	'''
+	destFile=resultFolder+fileName
+	sio.savemat(destFile,result)
 
 def loadImagePixelInfo(index):
 	'''
