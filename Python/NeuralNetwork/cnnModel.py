@@ -311,13 +311,13 @@ class CNNModel(object):
 
 					print '---------------outline----------------'
 					print 'epoch=%i,num=%i:'%(epoch,num)
-					print 'train precision=%f%%'%(trainAcc*100.)
-					print 'validation precision=%f%%, best=%f%%'%(valAcc4C*100.,maxValAcc4C*100.)
-					print 'binary validation precision=%f%%, best=%f%%'%(valAcc2C*100.,maxValAcc2C*100.)
-					print 'balanced train precision=%f%%'%(trainBAcc4C*100.)
-					print 'balanced validation precision=%f%%, best=%f%%'% \
+					print 'train precision=%.2f%%'%(trainAcc*100.)
+					print 'validation precision=%.2f%%, best=%.2f%%'%(valAcc4C*100.,maxValAcc4C*100.)
+					print 'binary validation precision=%.2f%%, best=%.2f%%'%(valAcc2C*100.,maxValAcc2C*100.)
+					print 'train recall=%.2f%%'%(trainBAcc4C*100.)
+					print 'validation recall=%.2f%%, best=%.2f%%'% \
 					(valBAcc4C*100.,maxValBAcc4C*100.)
-					print 'balanced binary validation precision=%f%%, best=%f%%'% \
+					print 'binary validation recall=%.2f%%, best=%.2f%%'% \
 					(valBAcc2C*100.,maxValBAcc2C*100.)
 					print '---------------details----------------'
 					print 'train:'

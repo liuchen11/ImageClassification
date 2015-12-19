@@ -196,7 +196,7 @@ class MLPModel(object):
 
 		index=T.iscalar('index')
 		trainModel=theano.function(
-			[index],self.cost,updates=self.momentumUpdate,
+			[index],self.cost,updates=self.adadeltaUpdate,
 			givens={
 			self.x:trainX[index*self.batchSize:(index+1)*self.batchSize],
 			self.y:trainY[index*self.batchSize:(index+1)*self.batchSize]})

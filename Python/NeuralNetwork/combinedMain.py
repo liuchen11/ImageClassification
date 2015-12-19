@@ -12,6 +12,12 @@ if __name__=='__main__':
 	[cnnTest,hogTest]=getTestData()
 	assert(cnnFeature.shape[0]==labels.shape[0])
 	assert(hogFeature.shape[0]==labels.shape[0])
+	hogFeature=hogFeature-np.ones([hogFeature.shape[0],1])*hogFeature.mean(axis=0)
+	hogFeature=hogFeature/(np.ones([hogFeature.shape[0],1])*hogFeature.std(axis=0))
+	hogTest=hogTest-np.ones([hogTest.shape[0],1])*hogTest.mean(axis=0)
+	hogTest=hogTest/(np.ones([hogTest.shape[0],1])*hogTest.std(axis=0))
+
+	mode='binary' if len(sys.argv)==2 and argv[1]=='-binary' else 'multiClass'
 
 	instanceNum=labels.shape[0]
 	trainInstanceNum=int(instanceNum*0.8)
@@ -46,21 +52,40 @@ if __name__=='__main__':
 	testSet['cnnX']=np.asarray(testCnnX,
 		dtype=theano.config.floatX).reshape(testInstanceNum,32,13,13)
 
-	model=CombinedModel(
-		mlpShape=(25,36864),
-		mlpNeurons=(512,),
-		mlpDropout=(0.0,0.0,),
-		cnnShape=(25,32,13,13),
-		cnnFeatures=(64,64,128),
-		cnnFilters=((4,4),(3,3),(0,0)),
-		cnnPoolings=((2,2),(1,1),(0,0)),
-		cnnDropout=(0.0,0.0,0.0),
-		wdecay=0.0,
-		categories=4,
-		learningRate=0.03,
-		name='combined'
-		)
-
-	[maxValAcc4C,test4CResult,test2CResult]=model.training(trainSet,valSet,testSet,5)
-	sio.savemat('4CResultComb.mat',{'4CResult':list(np.transpose(test4CResult))})
-	sio.savemat('2CResultComb.mat',{'2CResult':list(np.transpose(test2CResult))})
+	if mode=='multiClass':
+		model=CombinedModel(
+			mlpShape=(25,36864),
+			mlpNeurons=(512,),
+			mlpDropout=(0.0,0.0,),
+			cnnShape=(25,32,13,13),
+			cnnFeatures=(64,64,128),
+			cnnFilters=((4,4),(3,3),(0,0)),
+			cnnPoolings=((2,2),(1,1),(0,0)),
+			cnnDropout=(0.0,0.0,0.0),
+			wdecay=0.0,
+			categories=4,
+			learningRate=0.03,
+			name='combined'
+			)
+		[maxValAcc4C,test4CResult,test2CResult]=model.training(trainSet,valSet,testSet,5)
+		saveResult('Comb4C.mat',{'Predict4C':list(np.transpose(test4CResult))})
+		saveResult('Comb2C.mat',{'Predict2C':list(np.transpose(test2CResult))})
+	elif mode=='binary':
+		trainSet['y']=(trainSet['y']+1)/4
+		valSet['y']=(valSet['y']+1)/4
+		model=CombinedModel(
+			mlpShape=(25,36864),
+			mlpNeurons=(512,),
+			mlpDropout=(0.0,0.0,),
+			cnnShape=(25,32,13,13),
+			cnnFeatures=(64,64,128),
+			cnnFilters=((4,4),(3,3),(0,0)),
+			cnnPoolings=((2,2),(1,1),(0,0)),
+			cnnDropout=(0.0,0.0,0.0),
+			wdecay=0.0,
+			categories=2,
+			learningRate=0.03,
+			name='combined'			
+			)
+		[maxValAcc2C,test2CResult,_]=model.training(trainSet,valSet,testSet,5)
+		saveResult('CombBinary.mat',{'PredictBinary':list(np.transpose(test2CResult))})
