@@ -10,7 +10,7 @@
 
 clearvars; close all; clc
 
-load train/train.mat
+load ../train.mat
 train.X_cnn   = double(train.X_cnn);
 train.X_hog   = double(train.X_hog);
 train.y       = double(train.y);
@@ -89,7 +89,7 @@ end
 label = [];
 
 % making label predictions using constructed models
-for j = 1:6 
+for j = 1:6    
     [label(:,j),~] = predict(SVMModels{j},Xte(:,:));
 end
 
