@@ -1,6 +1,6 @@
 clear;close all;clc;
 
-load('train.mat');
+load ../train.mat;
 
 train.y       = double(train.y);
 train.X_cnn   = double(train.X_cnn);
@@ -26,7 +26,7 @@ validateLoss = zeros(times,9);
 rates    = 0.1:0.1:0.9;
 
 for time = 1:times
-    time
+    
 	for i = 1:size(rates,2)
 		rate=rates(i);
 		shuffle=randperm(instanceNum);
