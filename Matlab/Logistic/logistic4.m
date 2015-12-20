@@ -8,7 +8,7 @@
 
 clearvars; close all; clc
 
-load ../train/train.mat
+load ../train.mat
 train.X_cnn   = double(train.X_cnn);
 train.X_hog   = double(train.X_hog);
 train.y       = double(train.y);
@@ -98,7 +98,7 @@ end
 % start the voting process
 
 for i = 1:length(Yte)
-    i
+    
     voting = zeros(1,4);
 
     for j = 1:6;
