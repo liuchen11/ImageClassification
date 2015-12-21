@@ -5,14 +5,17 @@ The outline of files and directories is below. In both training and testing set,
 
 ```
 |-python
-	|-NeuralNetwork #NeuralNetwork Models, such as CNN and MLP
-	|-SVM			#Support Vector Machine
-	|-SOM			#Self-Organized Map
-	|-loadImg.py	#Data Loader
+	|-NeuralNetwork     #NeuralNetwork Models, such as CNN and MLP
+	|-SVM			    #Support Vector Machine
+	|-SOM			    #Self-Organized Map
+	|-loadImg.py	    #Data Loader
 |-matlab
+    |-trainTestTradeOff #deciding the size of training and validation data sets
+    |-Logistic	        #Logistic regression
+    |-SVM	            #Support vector machine
 |-data
-	|-train.mat		#Training Set: Data and Label
-	|-test.mat		#Testing Set: Data
+	|-train.mat  		#Training Set: Data and Label
+	|-test.mat  		#Testing Set: Data
 ```
 
 ##1.Python##
@@ -185,3 +188,5 @@ Example:
 python main.py -hog rbf
 python main.py -overfeat linear
 ```
+##2.MATLAB##
+In part of MATLAB implementation, please place the training and testing data in the 'Matlab' directory, or modify the 'load' command within all codes. You can run the enclosed MATLAB scripts by pressing the start button.
