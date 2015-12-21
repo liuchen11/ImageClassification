@@ -1,5 +1,4 @@
 import sys
-import cPickle
 import time
 import theano
 
