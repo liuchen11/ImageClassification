@@ -4,18 +4,19 @@ We implement many kinds of classifiers on image classification in python and mat
 The outline of files and directories is below. In both training and testing set, two kinds of features (Overfeat and HoG) are provided. **Running these classifiers may need up to 4-5GB RAM, please make sure your machine has enough memory.**
 
 ```
-|-python
+|-Python
 	|-NeuralNetwork     #NeuralNetwork Models, such as CNN and MLP
 	|-SVM			    #Support Vector Machine
 	|-SOM			    #Self-Organized Map
 	|-loadImg.py	    #Data Loader
-|-matlab
+|-Matlab
     |-trainTestTradeOff #deciding the size of training and validation data sets
     |-Logistic	        #Logistic regression
     |-SVM	            #Support vector machine
 |-data
 	|-train.mat  		#Training Set: Data and Label
 	|-test.mat  		#Testing Set: Data
+|-results				#Output Results in *.mat Format
 ```
 
 ##1.Python##
@@ -90,18 +91,18 @@ THEANO_FLAGS=mode=FAST_RUN,device=gpu1,floatX=float32 python hogMain.py -cnn
 * Run MLP on Overfeat Features
 
 ```
-python overfeatMain.py
+python overfeatMain.py (-binary)
 ```
 * Run MLP/CNN on HoG Features
 
 ```
-python hogMain.py -mlp
-python hogMain.py -cnn
+python hogMain.py -mlp (-binary)
+python hogMain.py -cnn (-binary)
 ```
 * Run Combined Model
 
 ```
-python combinedMain.py
+python combinedMain.py (-binary)
 ```
 ###1.2 Self-Organized Map###
 * The files in this part:
