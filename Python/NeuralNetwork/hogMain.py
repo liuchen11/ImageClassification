@@ -9,17 +9,12 @@ from loadImg import *
 
 if __name__=='__main__':
 	if len(sys.argv)!=2 and len(sys.argv)!=3:
-		print 'Usage: python hogMain.py [-cnn|-mlp]'
+		print 'Usage: python hogMain.py [-cnn|-mlp] (-binary)'
 		exit(0)
 	[cnnFeature,hogFeature,labels]=getDataY()
 	[cnnTest,hogTest]=getTestData()
 	assert(cnnFeature.shape[0]==labels.shape[0])
 	assert(hogFeature.shape[0]==labels.shape[0])
-	##Normalize##
-	hogFeature=hogFeature-np.ones([hogFeature.shape[0],1])*hogFeature.mean(axis=0)
-	hogFeature=hogFeature/(np.ones([hogFeature.shape[0],1])*hogFeature.std(axis=0))
-	hogTest=hogTest-np.ones([hogTest.shape[0],1])*hogTest.mean(axis=0)
-	hogTest=hogTest/(np.ones([hogTest.shape[0],1])*hogTest.std(axis=0))
 
 	modelType=sys.argv[1]
 	mode='binary' if len(sys.argv)==3 and sys.argv[2]=='-binary' else 'multiClass'

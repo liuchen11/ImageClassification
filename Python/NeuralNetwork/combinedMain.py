@@ -12,10 +12,6 @@ if __name__=='__main__':
 	[cnnTest,hogTest]=getTestData()
 	assert(cnnFeature.shape[0]==labels.shape[0])
 	assert(hogFeature.shape[0]==labels.shape[0])
-	hogFeature=hogFeature-np.ones([hogFeature.shape[0],1])*hogFeature.mean(axis=0)
-	hogFeature=hogFeature/(np.ones([hogFeature.shape[0],1])*hogFeature.std(axis=0))
-	hogTest=hogTest-np.ones([hogTest.shape[0],1])*hogTest.mean(axis=0)
-	hogTest=hogTest/(np.ones([hogTest.shape[0],1])*hogTest.std(axis=0))
 
 	mode='binary' if len(sys.argv)==2 and argv[1]=='-binary' else 'multiClass'
 
